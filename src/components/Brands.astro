@@ -1,0 +1,32 @@
+---
+var brands = [
+    { name: 'Apple', checked: true},
+    { name: 'Microsoft', checked: true},
+    { name: 'Dell', checked: false},
+    { name: 'Symphony', checked: false},
+    { name: 'Sony', checked: false},
+    { name: 'LG', checked: true},
+    { name: 'One Plus', checked: false},
+    { name: 'Google', checked: true},
+    { name: 'Samsung', checked: false},
+    { name: 'HP', checked: true},
+    { name: 'Xiaomi', checked: false},
+    { name: 'Panasonic', checked: true},
+    { name: 'Intel', checked: false},
+    
+]
+---
+<div class="w-full px-1 mt-2">
+    <h1 class="text-lg mb-3 font-medium uppercase">Popular Brands</h1>
+
+    <div class="w-full grid grid-cols-2">
+        {
+            brands.map((brand) => (
+            <div class="flex items-center mb-4">
+            <input id="default-checkbox" type="checkbox" value="" checked={brand.checked} class="w-5 h-5 text-[#FA8232] bg-gray-100 border-gray-300 rounded focus:ring-[#FA8232] dark:focus:ring-[#FA8232] dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{brand.name}</label>
+        </div>
+            ))
+        } 
+    </div>
+</div>

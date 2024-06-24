@@ -1,0 +1,24 @@
+---
+import SidebarCategory from "./SidebarCategory.astro"
+import PriceRange from "./PriceRange.astro"
+import Brands from "./Brands.astro"
+import PopularTag from "./PopularTag.astro"
+import Ad from "./Ad.astro"
+---
+<aside id="default-sidebar" class="w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-none bg-white dark:bg-gray-800">
+      <SidebarCategory/>
+
+      <div class="w-[80%] border-b py-2"></div>
+
+      <PriceRange/>
+
+      <div class="w-[80%] border-b py-2"></div>
+     <Brands/>
+     <div class="w-[80%] border-b py-2"></div>
+     <PopularTag/>
+
+     <Ad/>
+    </div>
+ </aside>
+ 
