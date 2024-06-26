@@ -3,6 +3,10 @@ import Sidebar from "./Sidebar.astro"
 import SearchBar from "./SearchBar.astro"
 import SelectSort from './SelectSort.astro'
 import Filter from "./Filter.astro"
+import Card from "./Card.astro"
+
+const res = await fetch('https://fakestoreapi.com/products')
+const products = await res.json() 
 ---
 
 <main class="container mx-auto  bg-white flex gap-x-6 py-6">
@@ -16,6 +20,23 @@ import Filter from "./Filter.astro"
     <div class="w-full">
         <Filter/>
     </div>
+
+    <section 
+    class="w-full mx-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+    {
+        products.map((product) => (
+          <Card
+          title={product.title}
+          image={product.image}
+          price={product.price}
+          stars={product.rating.count}
+          />  
+        ))
+    }
+      
+   </section>
+   
+  
    
 </div>
 

@@ -1,21 +1,25 @@
 ---
 interface Props {
-	title: string;
-	body: string;
-	href: string;
-	bgColor: string;
-	btnColor: string
+	image: string,
+	title: string,
+	price: string,
+	stars: string
 }
 
-const { href, title, body, bgColor, btnColor } = Astro.props;
+const { image, title, price, stars } = Astro.props
 ---
 
-<div class={bgColor}>
-	<div class="card-body">
-	  <h2 class="card-title">{ title }</h2>
-	  <p>{ body }</p>
-	  <div class="card-actions justify-center">
-		<a href={href} class={btnColor}>{title}</a>
-	  </div>
-	</div>
-  </div>
+    <div class="w-72 bg-white shadow-sm border rounded duration-500 hover:scale-105 hover:shadow-xl">
+        <a href="#">
+            <img src={image}
+                    alt="Product" class="h-80 w-72 object-cover rounded-t-xl p-6" />
+            <div class="px-4 py-3 w-72">
+                <span class="text-gray-400 mr-3 uppercase text-xs">{stars}</span>
+                <p class="text-lg font-bold text-black truncate block capitalize">{ title}</p>
+                <div class="flex items-center">
+                    <p class="text-lg font-semibold text-blue-500 cursor-auto my-3">${price}</p>
+                    
+                </div>
+            </div>
+        </a>
+    </div>
