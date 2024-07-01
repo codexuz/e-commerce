@@ -24,8 +24,9 @@ const products = await res.json()
     <section 
     class="w-full mx-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
     {
-        products.map((product) => (
+        products.map((product: any) => (
           <Card
+          link={`/product/${product.id}`}
           title={product.title}
           image={product.image}
           price={product.price}

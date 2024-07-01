@@ -3,14 +3,15 @@ interface Props {
 	image: string,
 	title: string,
 	price: string,
-	stars: string
+	stars: string,
+    link: string
 }
 
-const { image, title, price, stars } = Astro.props
+const { image, title, price, stars, link } = Astro.props
 ---
 
     <div class="w-72 bg-white shadow-sm border rounded duration-500 hover:scale-105 hover:shadow-xl">
-        <a href="#">
+        <a href={link}>
             <img src={image}
                     alt="Product" class="h-80 w-72 object-cover rounded-t-xl p-6" />
             <div class="px-4 py-3 w-72">

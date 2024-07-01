@@ -1,0 +1,91 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Post yaratish">
+  <main class="container mx-auto px-4 relative">
+    <button id="save" class="bg-blue-500 text-white px-6 py-2 rounded-xl float-right cursor-pointer mb-4 hover:bg-blue-600 absolute top-0 right-3" style="z-index: 90;">Save</button>
+     <div class="mt-6" id="editorjs"></div>
+  </main>
+</Layout>
+
+
+<script>
+    import EditorJS from '@editorjs/editorjs';
+    import Header from '@editorjs/header'; 
+    import List from '@editorjs/list'; 
+    import Checklist from '@editorjs/checklist'
+    import SimpleImage from "@editorjs/simple-image";
+    import Embed from '@editorjs/embed';
+    import InlineImage from 'editorjs-inline-image';
+    import edjsParser from 'editorjs-parser'
+    import { app } from '../../lib/client'
+    import {getFirestore, doc, setDoc } from "firebase/firestore"; 
+   const db = getFirestore(app);
+   
+    const parser = new edjsParser();
+
+    const editor = new EditorJS({
+        holder: 'editorjs',
+        tools: {
+            header: {
+                class: Header,
+                inlineToolbar: ['link']
+            },
+            list: {
+                class: List,
+                inlineToolbar: true
+            },
+            checklist: {
+                class: Checklist,
+                inlineToolbar: true
+            },
+            embed: {
+                class: Embed,
+                inlineToolbar: true
+            },
+            image: {
+               class: InlineImage,
+               inlineToolbar: true,
+               config: {
+                embed: {
+                    display: true
+                },
+                unsplash: {
+                    appName: 'Demi',
+                    apiUrl: 'https://unsplash.com/',
+                    maxResults: 30,
+                }
+               }
+            }
+        }
+    });
+
+async function saveData() {
+        editor.save().then( async (outputData) => {
+        const markup = parser.parse(outputData);
+        console.log('Article data: ', markup);
+        if(markup){
+            await saveToFirestore(markup);
+            window.location.reload()
+        }
+        }).catch((error) => {
+        console.log('Saving failed: ', error)
+        });
+}
+
+document.querySelector('#save').addEventListener('click', saveData)
+
+const id = 'post_id' + new Date().getTime();
+
+async function saveToFirestore(output) {
+    await setDoc(doc(db, "posts", id), {
+        body: output,
+        created_at: new Date().toISOString(),
+        author: 'Javlon'
+
+    });
+}
+
+
+</script>

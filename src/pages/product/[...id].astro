@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro"
+const res = await fetch('https://fakestoreapi.com/products')
+const products = await res.json();
+
+const {id} = Astro.params;
+const product = products.find((product: any) => product.id === Number(id));
+if(!product) return Astro.redirect('/404');
+console.log(product)
+---
+
+<Layout title="">
+  <main class="mt-8 container mx-auto px-4 grid grid-cols-2">
+    <div class="rounded-lg border p-4 w-[500px] h-[500px] overflow-hidden">
+        <img src={product.image} class="object-fit">
+    </div>
+
+    <div>
+        <div>
+            <p class="font-medium">{product.rating.rate} Star Rating <span class="font-thin">({product.rating.count} User Feedback)</span></p>
+
+            <h2 class="text-2xl font-bold mt-3">
+                {product.title}
+                <span class="font-thin lowercase">({product.description})</span>
+
+                <p class="my-4 text-gray-700 text-sm">Category: <span class="capitalize text-gray-900">{product.category}</span></p>
+            </h2> 
+
+            <div>
+                <p class="mt-6 text-2xl font-bold text-blue-500 pb-2 border-b">${product.price}</p>
+            </div>
+            
+        </div>
+    </div>
+  </main>
+</Layout>
